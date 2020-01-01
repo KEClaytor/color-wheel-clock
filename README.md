@@ -2,9 +2,9 @@
 
 Neopixel "clock" face with three button function selects.
 
-Here's the demo video:
+Click to view the demo video:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8xB9JruYcvE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Video of interactive wheel working](https://img.youtube.com/vi/8xB9JruYcvE/0.jpg)](https://www.youtube.com/watch?v=8xB9JruYcvE)
 
 ## Electronics
 
