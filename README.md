@@ -116,7 +116,9 @@ or changing position along the color wheel;
 ```python
 voltage = getVoltage(analogin)
 offset = voltage_to_int(voltage, NUMPIXELS)
-rc_index = (ii + offset) * 256 // NUMPIXELS
+for ii in range(len(pixels)):
+    rc_index = (ii + offset) * 256 // NUMPIXELS
+    pixels[ii] = wheel(rc_index & 255)
 ```
 
 #### NeoPixels
