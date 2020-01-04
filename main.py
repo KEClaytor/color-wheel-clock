@@ -48,14 +48,14 @@ BRIGHTNESS = 0.2
 ORDER = neopixel.GRB
 pixels = neopixel.NeoPixel(board.D4, NUMPIXELS, brightness=BRIGHTNESS, auto_write=False)
 # Initalize pixels OFF
-for i in range(len(pixels)):
+for i in range(NUMPIXELS):
     pixels[i] = OFF
 pixels.show()
 
 
 def wheel(pos):
     """ Color wheel from 0-255.
-    
+
     Input a value 0 to 255 to get a color value.
     The colours are a transition r - g - b - back to r.
     """
@@ -75,14 +75,14 @@ def wheel(pos):
         r = 0
         g = int(pos*3)
         b = int(255 - pos*3)
-    
+
     if ORDER == neopixel.RGB:
         color = (r, g, b)
     elif ORDER == neopixel.GRB:
         color = (g, r, b)
     else:
         color = (r, g, b, 0)
-    
+
     return color
 
 
@@ -115,7 +115,7 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 
 def get_button_state():
     """ Read and return a tuple of which buttons are pressed.
-    
+
     returns:
         (Red Pressed, White Pressed, Green Pressed)
     """
@@ -136,7 +136,7 @@ def set_three_colors(CA, CB, CC, offset=0):
 
 def voltage_to_int(voltage, int_max):
     """ Translate the circular touch pad to an integer range.
-    
+
     NOTE: If the voltage is below TOUCH_MIN_V, this returns None
     """
     if voltage < TOUCH_MIN_V:
@@ -150,7 +150,7 @@ def voltage_to_int(voltage, int_max):
 idx = 0
 while True:
     """ Main loop - listen and respond to button state.
-    
+
     MODES:
     NO BUTTONS PRESSED
         Lights off
@@ -171,7 +171,7 @@ while True:
     RED + WHITE + GREEN
         Fade through rainbow (non-interactive)
     """
-    
+
     idx += 1
     buttons = get_button_state()
     voltage = getVoltage(analogin)
@@ -218,7 +218,7 @@ while True:
         print("Red+White = Rainbow wheel")
         if not offset:
             offset = idx // 5
-        for ii in range(len(pixels)):
+        for ii in range(NUMPIXELS):
             rc_index = (ii + offset) * 256 // NUMPIXELS
             pixels[ii] = wheel(rc_index & 255)
         pixels.show()
@@ -229,13 +229,13 @@ while True:
             offset = voltage_to_int(voltage, 256)
         else:
             offset = idx // 5
-        for ii in range(len(pixels)):
+        for ii in range(NUMPIXELS):
             pixels[ii] = wheel(offset & 255)
         pixels.show()
 
     elif buttons == (True, True, True):
         print("Red+White+Green = Rainbow fade")
-        for i in range(len(pixels)):
+        for i in range(NUMPIXELS):
             pixels[i] = wheel(idx & 255)
         pixels.show()
 
